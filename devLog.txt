@@ -1,0 +1,152 @@
+
+-----------------------
+10:50 2016/3/3
+-----------------------
+1.模块化布局
+	立刻执行函数:	(function(window){}(window))
+	唯一一个全局变量: _d
+	函数挂载方法1：仅仅挂载方法
+	//test 添加单个方法
+	function add001(a, b){
+		return a+b;
+	}
+	_d['add001']=add001;//挂载 
+	
+	
+	函数挂载方法2：给函数添加方法
+	//test 添加单个方法
+	_d['$']=function(){
+		return document.getElementById(s);
+	}
+	_d['$'].version=function(){
+		return 0.0.0.1;
+	}	
+
+	模块化的基本结构：
+	var module=(function(){
+		//私有变量和私有方法
+		var some;
+		var fn=function(){};
+		//暴露api接口
+		return {
+			api1:fn,
+			api2:fn,
+		}
+	
+	}());//立即执行，返回的是对象
+	
+	
+2.自执行函数前加个分号的作用?
+	http://www.zhihu.com/question/29526862
+	防止脚本压缩合并后和前一个脚本关联导致歧义。
+
+
+3.如何写测试？
+	_d.debug对象和函数:
+	_d.debug()
+	_d.debug.assert()
+	
+	IBM使用框架单元测试：http://www.ibm.com/developerworks/cn/web/wa-tools/index.html
+	qunit(by jquery团队)：http://www.cnblogs.com/liuzhang/archive/2013/02/01/2889530.html
+	
+	[use]console.assert()函数 http://www.jb51.net/article/59138.htm
+	
+	
+4.[not solved]兼容console对象？
+	（1）逐一实现console的方法：http://www.jb51.net/article/30129.htm
+	(2)	by 颜海镜 (2014-11-03 19:38)
+	http://www.ituring.com.cn/article/128063
+		http://yanhaijing.com/javascript/2014/11/03/use-console.js/
+		这其实有点类似reset.css或者html5shim的做法
+		console.js 与console就想html5shim于html5
+		
+		
+	（3）这里做了console的log方法：http://devil13th.iteye.com/blog/1047219
+	if(!window.console){  
+		console = (function(){  
+			var instance = null;  
+			function Constructor(){  
+				this.div = document.createElement("console");  
+				this.div.id = "console";  
+				this.div.style.cssText = "filter:alpha(opacity=80);position:absolute;top:0px;left:0px;width:100%;border:1px solid #ccc;background:#eee;";  
+				document.body.appendChild(this.div);  
+			}  
+			Constructor.prototype = {  
+				log : function(str){  
+					var p = document.createElement("p");  
+					p.innerHTML = str;  
+					this.div.appendChild(p);  
+				}  
+			}  
+			function getInstance(){  
+				if(instance == null){  
+					instance =  new Constructor();  
+				}  
+				return instance;  
+			}  
+			return getInstance();  
+		})()  
+	}  
+	  
+	console.log("444");  
+	console.log("555");  
+	console.log("666");  
+	console.log("777");  
+
+5.[NG]UserAgent: 不好用，需要继续
+	(1)判断移动设备的终端类型
+	http://www.hi-docs.com/article/detail-ODU=.html
+
+	<script type="text/javascript">
+	var browser = {
+		versions:function(){ 
+		var u = navigator.userAgent, app = navigator.appVersion; 
+		return ;
+		}(),
+		language:(navigator.browserLanguage || navigator.language).toLowerCase()
+	} 
+	document.writeln("语言版本: "+browser.language);
+	document.writeln(" 是否为移动终端: "+browser.versions.mobile);
+	document.writeln(" ios终端: "+browser.versions.ios);
+	document.writeln(" android终端: "+browser.versions.android);
+	document.writeln(" 是否为iPhone: "+browser.versions.iPhone);
+	document.writeln(" 是否iPad: "+browser.versions.iPad);
+	document.writeln(navigator.userAgent);
+	</script>
+	
+	(2)PC浏览器类型UserAgent判断的函数
+	<script language="javascript">
+	var explorer =navigator.userAgent,browse;
+	if (explorer.indexOf("MSIE") >= 0){
+		//ie 
+		browse = "ie";
+	}else if (explorer.indexOf("Firefox") >= 0) {
+		// firefox 火狐
+		browse = "Firefox";
+	}else if(explorer.indexOf("Chrome") >= 0){
+		//Chrome 谷歌
+		browse = "Chrome";
+	}else if(explorer.indexOf("Opera") >= 0){
+		//Opera 欧朋
+		browse = "Opera";
+	}else if(explorer.indexOf("Safari") >= 0){
+		//Safari 苹果浏览器
+		browse = "Safari";
+	}else if(explorer.indexOf("Netscape")>= 0) { 
+		//Netscape
+		browse = "Netscape"; 
+	}
+	</script>
+
+6.css方法
+	借鉴 https://github.com/limingyang2012/liutil/blob/master/liutil.js#L99
+
+
+
+
+
+
+
+
+
+-----

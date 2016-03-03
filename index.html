@@ -1,0 +1,35 @@
+<meta charset='utf-8'>
+<style>
+body{font-family:'微软雅黑'}
+.small{font-size:smaller; color:#eee;}
+.red{color:red;}
+.blueBg{background:blue;}
+</style>
+<h1>dawnJS <span class=small>(This page is for Dev and Test use only)</span></h1>
+
+
+<script src='dawnJS.js'></script>
+<script>
+//构建测试条件
+var unitTest=[
+	
+			[[1].length==0, "Assertion of array length failed"],
+			[typeof alert=='function', 'fn is not a function']
+		];
+
+//类型判断测试
+var unitTest1=[
+			[ _d.type('123')=='String', "Assertion of Stringify number1 failed"],
+			[ _d.type(123)=='Number', "Assertion of Stringify number2 failed"],
+			[ _d.is.array([])==true, "Assertion of _d.is.array([]) failed"],
+			[ _d.is.array({})==false, "Assertion of _d.is.array({}) failed"],
+			[ _d.is.object({})==false, "Assertion of _d.is.object({}) failed"], //专门构建的错误条件
+		];
+		
+		
+//开始测试
+//_d.debug.assert(unitTest)
+
+
+
+</script>

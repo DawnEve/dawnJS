@@ -1,5 +1,5 @@
 /*
-* dawnJS v0.0.1.0
+* dawnJS v0.0.0.6
 * 怎么自动化文档：注释转化为文档注释？
 * 怎么自动化测试？
 * 
@@ -165,7 +165,7 @@
 
 	
 	//--------------------css
-	_d.css={
+	var css={
 		/**
 		 * 判断是否具有每个class的方法
 		 */
@@ -235,9 +235,15 @@
 		  return obj.currentStyle ? obj.currentStyle[attr]:getComputedStyle( obj )[attr]; 
 		}
 	}
+	_d.css=css;
 
 			
-		
+
+
+
+
+
+
 	//--------------------dom选择
 	//id选择器
 	function $(obj, scope){
@@ -246,16 +252,20 @@
 		return scope.getElementById(obj);
 	}
 	
-	_d.$=function(str){
+	_d.$=function(str,scope){
 		//把jQ选择器搞过来？
+		
+		var scope=scope||document;//默认值
 		
 		//只能实现简单的选择
 		var flag=str.substr(0,1);//第一个字符
 		var keyword=str.substr(1);//其余字符
-		if(flag='#'){
-			return $(keyword);
-		}else if(flag='.'){
-			return $();
+		if('#'==flag){
+			return $(keyword, scope);//按id选择
+		}else if('.'==flag){ 
+			return css.getElementsByClassName(scope,keyword);//按class选择
+		}else{
+			return scope.getElementsByTagName(str);//按标签选择
 		}
 	
 	}

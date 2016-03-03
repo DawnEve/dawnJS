@@ -138,13 +138,15 @@
 	}
 	</script>
 
-6.css方法
+6.css方法，没有做到jQ的css方法：todo
 	借鉴 https://github.com/limingyang2012/liutil/blob/master/liutil.js#L99
 
 
 
 
+-----------------------
 
+-----------------------
 
 
 
